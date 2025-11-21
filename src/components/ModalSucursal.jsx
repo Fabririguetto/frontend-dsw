@@ -1,5 +1,5 @@
 import React from 'react';
-import './modal.css'; 
+import './ModalSucursal.css'; 
 
 function ModalSucursal({ showModal, onClose, children }) {
   if (!showModal) return null;

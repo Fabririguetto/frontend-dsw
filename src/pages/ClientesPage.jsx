@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import useClientes from '../../hooks/useHookCli';
-import './clientes.css'; 
+import useClientes from '../hooks/useHookCli';
+import './ClientesPage.css'; 
 
 function FormClientes() {
   const {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './detalle_Venta.css';
+import './DetalleVenta.css';
 
 function DetalleVenta({ venta, closeModal }) {
   const [detallesVenta, setDetallesVenta] = useState([]);

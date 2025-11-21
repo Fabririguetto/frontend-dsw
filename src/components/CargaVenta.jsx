@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
-import { useHookCargaVenta } from '../../hooks/useHookCargaVenta';
-import './cargaventa.css';
+import { useHookCargaVenta } from '../hooks/useHookCargaVenta';
+import './CargaVenta.css';
 
 function DetalleCargarVenta() {
   const { idVenta } = useParams();  // Obtiene el idVenta de la URL

@@ -1,24 +1,29 @@
 import React from 'react';
 import { BrowserRouter, NavLink, Route, Routes, Navigate } from 'react-router-dom';
-import Stock from './forms/stock/stock';
-import Clientes from './forms/clientes/clientes';
-import Sucursales from './forms/sucursales/sucursales';
-import Ventas from './forms/venta/ventas';
-import Empleados from './forms/empleados/empleados';
-import DetalleVenta from './forms/venta/detalle_Venta';
-import DetalleCargarVenta from './forms/venta/cargaventa';  
+import './styles/App.css';
+
+import StockPage from './pages/StockPage';
+import ClientesPage from './pages/ClientesPage';
+import SucursalesPage from './pages/SucursalesPage';
+import VentasPage from './pages/VentasPage';
+import EmpleadosPage from './pages/EmpleadosPage';
+
+import DetalleVenta from './components/DetalleVenta';
+import CargaVenta from './components/CargaVenta'; 
 
 function App() {
+  const getLinkClass = ({ isActive }) => isActive ? "active" : "";
+
   return (
     <BrowserRouter>
       <div className="App">
         <header className="App-header">
           <nav>
-            <NavLink to="/ventas" activeClassName="active">Ventas</NavLink>
-            <NavLink to="/stock" activeClassName="active">Stock</NavLink>
-            <NavLink to="/clientes" activeClassName="active">Clientes</NavLink>
-            <NavLink to="/empleados" activeClassName="active">Empleados</NavLink>
-            <NavLink to="/sucursales" activeClassName="active">Sucursales</NavLink>
+            <NavLink to="/ventas" className={getLinkClass}>Ventas</NavLink>
+            <NavLink to="/stock" className={getLinkClass}>Stock</NavLink>
+            <NavLink to="/clientes" className={getLinkClass}>Clientes</NavLink>
+            <NavLink to="/empleados" className={getLinkClass}>Empleados</NavLink>
+            <NavLink to="/sucursales" className={getLinkClass}>Sucursales</NavLink>
           </nav>
         </header>
 
@@ -26,13 +31,14 @@ function App() {
           <Routes>
             <Route path="/" element={<Navigate to="/ventas" />} />
 
-            <Route path="/stock" element={<Stock />} />
-            <Route path="/clientes" element={<Clientes />} />
-            <Route path="/sucursales" element={<Sucursales />} />
-            <Route path="/ventas" element={<Ventas />} />
-            <Route path="/empleados" element={<Empleados />} />
+            <Route path="/stock" element={<StockPage />} />
+            <Route path="/clientes" element={<ClientesPage />} />
+            <Route path="/sucursales" element={<SucursalesPage />} />
+            <Route path="/ventas" element={<VentasPage />} />
+            <Route path="/empleados" element={<EmpleadosPage />} />
+
             <Route path="/detalle_venta/:idVenta" element={<DetalleVenta />} />
-            <Route path="/cargaventa/:idVenta" element={<DetalleCargarVenta />} />
+            <Route path="/cargaventa/:idVenta" element={<CargaVenta />} />
           </Routes>
         </div>
       </div>

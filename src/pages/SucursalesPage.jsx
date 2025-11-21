@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './sucursales.css';
-import Modal from './modal';
+import './SucursalesPage.css';
+import Modal from '../components/ModalSucursal';
 
 function FormSucursales() {
   const [sucursales, setSucursales] = useState([]);

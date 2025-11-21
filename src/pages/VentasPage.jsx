@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './venta.css';
-import DetalleVenta from './detalle_Venta';
-import { useHookVen } from '../../hooks/useHookVen';
+import './VentasPage.css';
+import DetalleVenta from '../components/DetalleVenta';
+import { useHookVen } from '../hooks/useHookVen';
 
 function FormVentas() {
   const {

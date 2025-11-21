@@ -1,5 +1,5 @@
 import React from 'react';
-import useStock from '../../hooks/useHookStock';
+import useStock from '../hooks/useHookStock';
 import TablePagination from '@mui/material/TablePagination';
 import TableFooter from '@mui/material/TableFooter';
 import TableRow from '@mui/material/TableRow';
@@ -8,7 +8,7 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
-import './stock.css';
+import './StockPage.css';
 
 function FormStock() {
   const {

@@ -1,6 +1,6 @@
 import React from 'react';
-import './empleados.css';
-import useEmpleados from '../../hooks/useHookEmp';
+import './EmpleadosPage.css';
+import useEmpleados from '../hooks/useHookEmp';
 
 function FormEmpleados() {
   const {
