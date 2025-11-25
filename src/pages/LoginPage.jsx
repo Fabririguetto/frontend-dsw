@@ -19,7 +19,6 @@ const LoginPage = () => {
             setError(err.message);
         }
     };
-
     return (
         
         <div className="login-container">
