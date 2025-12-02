@@ -1,153 +1,162 @@
 body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #f4f4f9;
-  color: #333;
-  margin: 0;
-  padding: 0;
-  transition: background-color 0.3s ease;
-  height: 100%;
+font-family: 'Roboto', sans-serif;
+background-color: #f4f4f9;
+color: #333;
+margin: 0;
+padding: 0;
+transition: background-color 0.3s ease;
+height: 100%;
 }
 
 #root {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  min-height: 100vh;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 0 2px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: flex-start;
+min-height: 100vh;
+width: 100%;
+box-sizing: border-box;
+padding: 0 2px;
 }
 
 form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  width: 100%;
-  margin: 20px 0;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
+width: 100%;
+margin: 20px 0;
+background-color: #fff;
+padding: 20px;
+border-radius: 8px;
+box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 input[type="text"],
 input[type="number"] {
-  padding: 10px;
-  flex: 1;
-  min-width: 150px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  transition: border 0.3s, box-shadow 0.3s;
+padding: 10px;
+flex: 1;
+min-width: 150px;
+border: 1px solid #ddd;
+border-radius: 5px;
+transition: border 0.3s, box-shadow 0.3s;
 }
 
 input:focus {
-  border-color: #61dafb;
-  box-shadow: 0 0 5px #61dafb;
+border-color: #61dafb;
+box-shadow: 0 0 5px #61dafb;
 }
 
 button {
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  flex: 1;
-  min-width: 150px;
-  font-size: 16px; 
-  height: 45px;  
+padding: 10px 15px;
+border-radius: 5px;
+cursor: pointer;
+transition: background-color 0.3s;
+flex: 1;
+min-width: 150px;
+font-size: 16px;
+height: 45px;
 }
 
 button:hover {
-  background-color: #357ab8;
+background-color: #357ab8;
 }
 
 #estado-sekect{
-  border: 20px !important;
+border: 20px !important;
 }
 
 .estado-sekect{
-  border: 20px !important;
+border: 20px !important;
 }
 
 .btn-submit {
-  background-color: #28a745;
-  color: white;
+background-color: #28a745;
+color: white;
 }
 
 .btn-submit:hover {
-  background-color: #218838;
+background-color: #218838;
 }
 
 .btn-reset {
-  background-color: #54534f;
-  color: white;
+background-color: #54534f;
+color: white;
 }
 
 .btn-reset:hover {
-  background-color: #383734;
+background-color: #383734;
 }
 
 table {
-  width: 90%;
-  margin: 20px auto;
-  border-collapse: collapse;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+width: 90%;
+margin: 20px auto;
+border-collapse: collapse;
+box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 th,
 td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+padding: 12px;
+text-align: left;
+border-bottom: 1px solid #ddd;
 }
 
 th {
-  background-color: #4a90e2;
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.3s;
+background-color: #4a90e2;
+color: #fff;
+cursor: pointer;
+transition: background-color 0.3s;
 }
 
 th:hover {
-  background-color: #357ab8;
+background-color: #357ab8;
 }
 
 tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+background-color: #f9f9f9;
 }
 
 tbody tr:hover {
-  background-color: #f1f1f1;
+background-color: #f1f1f1;
 }
 
 .btn-edit {
-  background-color: #ffc107;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+background-color: #ffc107;
+color: white;
+border: none;
+padding: 8px 15px;
+border-radius: 5px;
+cursor: pointer;
+transition: background-color 0.3s ease;
 }
 
 .btn-edit:hover {
-  background-color: #e0a800;
+background-color: #e0a800;
 }
 
 .btn-delete {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+background-color: #dc3545;
+color: white;
+border: none;
+padding: 8px 15px;
+border-radius: 5px;
+cursor: pointer;
+transition: background-color 0.3s ease;
 }
 
 .btn-delete:hover {
-  background-color: #c82333;
+background-color: #c82333;
 }
 
 .pagination{
-  display: flex;
+display: flex;
+}
+
+.stock-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.stock-icon {
+    color: var(--primary-color) !important;
 }

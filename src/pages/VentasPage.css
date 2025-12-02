@@ -126,3 +126,12 @@ button.detallebtn {
 button.detallebtn:hover {
   background-color: #0056b3;
 }
+.ventas-title-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ventas-icon {
+    color: #2e7d32 !important;
+}

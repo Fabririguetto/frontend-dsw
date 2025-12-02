@@ -4,17 +4,25 @@ import useVentas from '../hooks/useHookVen';
 import DetalleVenta from '../components/DetalleVenta';
 import './VentasPage.css';
 
-// Importaciones de Material UI para la paginación
-import TablePagination from '@mui/material/TablePagination';
-import TableFooter from '@mui/material/TableFooter';
-import TableRow from '@mui/material/TableRow';
-import { IconButton } from '@mui/material';
-import FirstPageIcon from '@mui/icons-material/FirstPage';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import LastPageIcon from '@mui/icons-material/LastPage';
+import {
+  Paper, Typography, TextField, Table, TableBody, TableCell,
+  TableContainer, TableHead, TableRow, InputAdornment, Button, Chip,
+  Alert, IconButton, Tooltip, TablePagination, TableFooter
+} from '@mui/material';
 
-// Componente auxiliar para los botones de paginación
+import {
+  FirstPage as FirstPageIcon,
+  KeyboardArrowLeft as KeyboardArrowLeftIcon,
+  KeyboardArrowRight as KeyboardArrowRightIcon,
+  LastPage as LastPageIcon,
+  ReceiptLong as ReceiptIcon,
+  Search as SearchIcon,
+  AddShoppingCart as AddIcon,
+  Visibility as ViewIcon
+} from '@mui/icons-material';
+
+
+
 function TablePaginationActions(props) {
   const { count, page, rowsPerPage, onPageChange } = props;
 
@@ -34,7 +42,6 @@ function TablePaginationActions(props) {
     onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
   };
 
-  // Eliminamos el style={{ color: 'inherit' }} para usar el color por defecto del botón (gris/negro)
   return (
     <div style={{ flexShrink: 0, marginLeft: 20 }}>
       <IconButton onClick={handleFirstPageButtonClick} disabled={page === 0} aria-label="primera página">
@@ -73,7 +80,6 @@ function VentasPage() {
 
   useEffect(() => {
     fetchVentas(filtro);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, limit, filtro]); 
 
   const handleFilterChange = (e) => {
@@ -103,7 +109,13 @@ function VentasPage() {
   const thStyle = { cursor: 'pointer', userSelect: 'none' };
 
   return (
+    
     <div id="form-ventas-container">
+<div className="page-title ventas-title-container">
+        <ReceiptIcon fontSize="large" className="ventas-icon" />
+        Historial de Ventas
+      </div>
+
       <header className="App-header" id="header-ventas">
         <input
           type="text"
@@ -170,7 +182,6 @@ function VentasPage() {
           
           <TableFooter>
             <TableRow>
-              {/* Hemos quitado el SX que forzaba el color blanco para que se usen los colores por defecto */}
               <TablePagination
                 rowsPerPageOptions={[5, 10, 20]}
                 colSpan={6}

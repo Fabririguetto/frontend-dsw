@@ -51,9 +51,10 @@ const EmpleadosPage = () => {
 
   return (
     <div className="page-container">
-      <div className="empleados-header">
-        <BadgeIcon className="header-icon-empleado" />
-        <Typography variant="h4" component="h1" className="page-title">Gestión de Personal</Typography>
+            {/* Título Unificado (Estilo Sucursales) */}
+      <div className="page-title" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <BadgeIcon fontSize="large" style={{ color: '#5e35b1' }} />
+        Gestión de Personal
       </div>
 
       {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}

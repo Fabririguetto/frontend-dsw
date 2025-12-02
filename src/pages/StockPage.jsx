@@ -9,6 +9,7 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
+import { Inventory as InventoryIcon } from '@mui/icons-material';
 import './StockPage.css';
 
 function StockPage() {
@@ -41,9 +42,10 @@ function StockPage() {
 
   return (
     <div className="stock-container" style={{ padding: '20px' }}>
-      <Typography variant="h4" gutterBottom style={{ color: '#1976d2', fontWeight: 'bold' }}>
+      <div className="page-title stock-title">
+        <InventoryIcon fontSize="large" className="stock-icon" />
         Control de Stock
-      </Typography>
+      </div>
 
       <div className="search-bar" style={{ marginBottom: '20px' }}>
         <input

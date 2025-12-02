@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import useSucursales from '../hooks/useHookSuc';
-import Modal from '../components/ModalSucursal'; 
+import Modal from '../components/ModalSucursal';
 import { Store as StoreIcon } from '@mui/icons-material';
-
+import '../pages/SucursalesPage.css'; 
 const SucursalesPage = () => {
   const { sucursales, fetchSucursales, error } = useSucursales();
   const [filtro, setFiltro] = useState('');
@@ -26,31 +26,34 @@ const SucursalesPage = () => {
 
   return (
     <div className="page-container">
-      
-      <div className="page-title" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <StoreIcon fontSize="large" style={{ color: 'var(--success)' }} />
+
+      <div className="page-title sucursales-title">
+        <StoreIcon fontSize="large" className="sucursal-icon" />
         Red de Sucursales
       </div>
 
-      <div className="form-container" style={{ marginBottom: '30px', padding: '20px' }}>
+      <div className="form-container">
         <input
           type="text"
           value={filtro}
           onChange={handleFiltroChange}
           placeholder="Buscar por nombre o dirección"
-          style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #ccc' }}
+          className="input-filtro"
         />
-        {error && <p style={{ color: 'red', marginTop: '10px' }}>Error: {error}</p>}
+
+        {error && <p className="error-text">Error: {error}</p>}
       </div>
 
       <div className="card-container">
         {sucursales.map((sucursal) => (
           <div key={sucursal.idSucursal} className="card">
             <h3 className="card-title">{sucursal.nombreSucursal}</h3>
+
             <div className="card-text">
               <p><strong>ID:</strong> #{sucursal.idSucursal}</p>
               <p><strong>Dirección:</strong> {sucursal.direccion}</p>
             </div>
+
             <div className="card-button-container">
               <button
                 className="card-button"
@@ -61,19 +64,16 @@ const SucursalesPage = () => {
             </div>
           </div>
         ))}
-        
+
         {sucursales.length === 0 && (
-          <p style={{ gridColumn: '1 / -1', textAlign: 'center', color: '#666' }}>
-            No se encontraron sucursales.
-          </p>
+          <p className="no-results">No se encontraron sucursales.</p>
         )}
       </div>
 
-
-      <Modal 
+      <Modal
         open={showModal}
-        onClose={closeModal} 
-        sucursal={sucursalSeleccionada} 
+        onClose={closeModal}
+        sucursal={sucursalSeleccionada}
       />
     </div>
   );

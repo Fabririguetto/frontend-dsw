@@ -40,9 +40,9 @@ const ClientesPage = () => {
 
   return (
     <div className="page-container">
-      <div className="clientes-header">
-        <PeopleIcon className="header-icon" />
-        <Typography variant="h4" component="h1" className="page-title">Gestión de Clientes</Typography>
+      <div className="page-title clientes-title">
+        <PeopleIcon fontSize="large" className="cliente-icon" />
+         Gestión de Clientes
       </div>
 
       {hookError && <Alert severity="error" sx={{ mb: 2 }}>{hookError}</Alert>}
