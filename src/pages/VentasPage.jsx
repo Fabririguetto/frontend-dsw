@@ -130,11 +130,11 @@ function VentasPage() {
         <table id="tabla-ventas" className="tabla-negra">
           <thead>
             <tr>
-              <th style={thStyle} onClick={() => requestSort('idVenta')}>ID</th>
-              <th style={thStyle} onClick={() => requestSort('montoTotal')}>Monto Total</th>
-              <th style={thStyle} onClick={() => requestSort('nombre_apellidoEmp')}>Vendedor</th>
-              <th style={thStyle} onClick={() => requestSort('nombre_apellidoCli')}>Cliente</th>
-              <th style={thStyle} onClick={() => requestSort('fechaHoraVenta')}>Fecha y Hora</th>
+              <th style={thStyle} onClick={() => requestSort('idVenta')}>ID ↕</th>
+              <th style={thStyle} onClick={() => requestSort('montoTotal')}>Monto Total ↕</th>
+              <th style={thStyle} onClick={() => requestSort('nombre_apellidoEmp')}>Vendedor ↕</th>
+              <th style={thStyle} onClick={() => requestSort('nombre_apellidoCli')}>Cliente ↕</th>
+              <th style={thStyle} onClick={() => requestSort('fechaHoraVenta')}>Fecha y Hora ↕</th>
               <th>Acciones</th>
             </tr>
           </thead>

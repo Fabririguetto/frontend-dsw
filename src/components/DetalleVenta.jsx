@@ -24,6 +24,9 @@ function DetalleVenta({ venta, closeModal }) {
       });
   }, [venta]);
 
+
+  const totalCalculado = detallesVenta.reduce((acc, item) => acc + Number(item.subtotal), 0);
+
   const renderDetalles = () => {
     if (detallesVenta.length === 0) {
       return (
@@ -66,6 +69,12 @@ function DetalleVenta({ venta, closeModal }) {
               {renderDetalles()}
             </tbody>
           </table>
+        </div>
+
+        <div style={{ textAlign: 'right', marginTop: '20px', borderTop: '1px solid #ccc', paddingTop: '10px' }}>
+            <h3 style={{ color: '#333' }}>
+                Total Pagado: <span style={{ color: '#28a745' }}>${totalCalculado.toFixed(2)}</span>
+            </h3>
         </div>
       </div>
     </div>
