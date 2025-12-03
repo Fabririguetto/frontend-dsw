@@ -49,7 +49,7 @@ function StockPage() {
         Control de Stock
       </div>
 
-<div className="form-container">
+<div className="form-container form-container-stock">
         <input
           type="text"
           name="nombreProducto"
@@ -61,7 +61,7 @@ function StockPage() {
       </div>
       
       {isAdmin && (
-  <div className="form-card">
+  <div className="form-card form-container-stock">
     <Typography variant="h6" className="form-title">
       {formData.idProducto ? (
         <>
@@ -70,7 +70,7 @@ function StockPage() {
         </>
       ) : (
         <>
-          <AddCircleIcon sx={{ mr: 1 }} /> {/* Necesitarás importar este icono */}
+          <AddCircleIcon sx={{ mr: 1 }} />
           Nuevo Producto
         </>
       )}
@@ -142,50 +142,38 @@ function StockPage() {
   </div>
 )}
 
-      <div className="table-responsive">
-        <table className="stock-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
+<div className="table-responsive">
+        <table className="stock-table">
           <thead>
-            <tr style={{ backgroundColor: '#1976d2', color: 'white' }}>
-              <th onClick={() => requestSort('articulo')} style={{ cursor: 'pointer', padding: '10px' }}>Artículo ↕</th>
-              <th onClick={() => requestSort('descripcion')} style={{ cursor: 'pointer', padding: '10px' }}>Descripción ↕</th>
-              <th onClick={() => requestSort('cantidad')} style={{ cursor: 'pointer', padding: '10px' }}>Stock ↕</th>
-              <th onClick={() => requestSort('monto')} style={{ cursor: 'pointer', padding: '10px' }}>Precio ↕</th>
-
-              {isAdmin && <th style={{ padding: '10px' }}>Acciones</th>}
+            <tr>
+              <th onClick={() => requestSort('articulo')}>Artículo</th>
+              <th onClick={() => requestSort('descripcion')}>Descripción</th>
+              <th onClick={() => requestSort('cantidad')}>Stock</th>
+              <th onClick={() => requestSort('monto')}>Precio</th>
+              {isAdmin && <th>Acciones</th>}
             </tr>
           </thead>
           <tbody>
             {sortedProductos.map((producto) => (
-              <tr key={producto.idProducto} style={{ borderBottom: '1px solid #eee' }}>
-                <td style={{ padding: '10px' }}>{producto.articulo}</td>
-                <td style={{ padding: '10px' }}>{producto.descripcion}</td>
-                <td style={{ padding: '10px', fontWeight: 'bold', color: producto.cantidad < 5 ? 'red' : 'green' }}>
+              <tr key={producto.idProducto}>
+                <td>{producto.articulo}</td>
+                <td>{producto.descripcion}</td>
+                <td className={producto.cantidad < 5 ? 'stock-low' : 'stock-ok'}>
                   {producto.cantidad}
                 </td>
-                <td style={{ padding: '10px' }}>{`$${(producto.monto ? Number(producto.monto).toFixed(2) : '0.00')}`}</td>
+                <td>{`$${(producto.monto ? Number(producto.monto).toFixed(2) : '0.00')}`}</td>
                 
 
                 {isAdmin && (
-                  <td style={{ padding: '10px' }}>
-                    <button
-                      className="btn-edit"
-                      onClick={() => handleEdit(producto)}
-                      style={{ marginRight: '5px', cursor: 'pointer', backgroundColor: '#1976d2', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '4px' }}
-                    >
-                      Editar
-                    </button>
-                    <button
-                      className="btn-delete"
-                      onClick={() => handleElim(producto.idProducto, producto.estado)}
-                      style={{ cursor: 'pointer', backgroundColor: '#d32f2f', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '4px' }}
-                    >
-                      Borrar
-                    </button>
+                  <td>
+                    <button className="btn-edit" onClick={() => handleEdit(producto)}> Editar</button>
+                    <button className="btn-delete" onClick={() => handleElim(producto.idProducto, producto.estado)} > Borrar </button>
                   </td>
                 )}
               </tr>
             ))}
           </tbody>
+
           <TableFooter>
             <TableRow>
               <TablePagination

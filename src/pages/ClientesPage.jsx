@@ -47,7 +47,7 @@ const ClientesPage = () => {
 
       {hookError && <Alert severity="error" sx={{ mb: 2 }}>{hookError}</Alert>}
 
-      <div className="form-container">
+      <div className="form-container form-container-cliente">
   <input
     type="text"
     placeholder="Buscar cliente"
@@ -56,7 +56,7 @@ const ClientesPage = () => {
   />
 </div>
 
-      <div className="form-card">
+      <div className="form-card form-container-cliente">
   <Typography variant="h6" className="form-title">
     {formData.idCliente ? <EditIcon sx={{ mr: 1 }} /> : <PersonAddIcon sx={{ mr: 1 }} />}
     {formData.idCliente ? 'Editar Cliente' : 'Nuevo Cliente'}
@@ -115,6 +115,7 @@ const ClientesPage = () => {
           color="secondary" 
           onClick={resetForm} 
           startIcon={<CancelIcon />}
+          className="btn-cancel"
         >
           Cancelar
         </Button>
@@ -139,7 +140,7 @@ const ClientesPage = () => {
               <TableCell onClick={() => requestSort('nombre_apellidoCli')} className="table-header-cell pointer">Nombre ↕</TableCell>
               <TableCell className="table-header-cell">Dirección</TableCell>
               <TableCell className="table-header-cell">Contacto</TableCell>
-              {isAdmin && <TableCell align="center" className="table-header-cell">Acciones</TableCell>}
+              <TableCell align="center" className="table-header-cell">Acciones</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -149,11 +150,9 @@ const ClientesPage = () => {
                 <TableCell>{cli.nombre_apellidoCli}</TableCell>
                 <TableCell>{cli.direccion}</TableCell>
                 <TableCell>{cli.contacto}</TableCell>
-                {isAdmin && (
-                  <TableCell align="center">
-                    <Tooltip title="Editar"><IconButton className="action-btn-edit" onClick={() => handleEdit(cli)}><EditIcon /></IconButton></Tooltip>
-                  </TableCell>
-                )}
+                <TableCell align="center">
+                  <Tooltip title="Editar"><IconButton className="action-btn-edit" onClick={() => handleEdit(cli)}><EditIcon /></IconButton></Tooltip>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -74,4 +74,9 @@ button.detallebtn:hover {
 
 .ventas-icon {
     color: #2e7d32 !important;
+    margin-right: 8px
+}
+
+.form-container-venta{
+  border-left: 4px solid #2e7d32 !important;
 }

@@ -1,17 +1,3 @@
-
-.clientes-header {
-    display: flex;
-    align-items: center;
-    padding-bottom: 15px;
-    margin-bottom: 25px;
-}
-
-.header-icon {
-    font-size: 40px !important;
-    color: var(--primary-color);
-    margin-right: 15px;
-}
-
 .search-card {
     background-color: var(--surface-white) !important;
     padding: 15px;
@@ -64,3 +50,14 @@
 .action-btn-edit:hover {
     background-color: rgba(25, 118, 210, 0.04) !important;
 }
+
+.cliente-icon {
+    color: #7e57c2 !important;
+    margin-right: 8px
+}
+
+.form-container-cliente{
+    border-left: 4px solid #7e57c2 !important;
+}
+
+

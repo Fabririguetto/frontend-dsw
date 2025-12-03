@@ -53,14 +53,13 @@ const EmpleadosPage = () => {
   return (
     <div className="page-container">
       <div className="page-title">
-  <BadgeIcon fontSize="large" className="sucursal-icon" />
+  <BadgeIcon fontSize="large" className="empleado-icon" />
   <span>Gestión de Personal</span>
 </div>
 
       {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
 
-      {/* Buscador */}
-      <div className="form-container">
+      <div className="form-container form-container-empleado">
   <input
     type="text"
     placeholder="Buscar empleado"
@@ -69,7 +68,7 @@ const EmpleadosPage = () => {
   />
 </div>
 
-      <div className="form-card">
+      <div className="form-card form-container-empleado">
   <Typography variant="h6" className="form-title">
     {isEditMode ? (
       <>

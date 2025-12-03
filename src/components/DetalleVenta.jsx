@@ -54,7 +54,9 @@ function DetalleVenta({ venta, closeModal }) {
     <div className="modal">
       <div className="modal-content">
         <span className="close-btn" onClick={closeModal}>&times;</span>
-        <h2>Detalles de la Venta {venta.idVenta}</h2>
+        <h2 className="titulo-venta">
+          Detalles de Venta #{venta.idVenta}
+        </h2>
         <div className="tabla-container">
           <table className="tabla-negra">
             <thead>
@@ -71,10 +73,9 @@ function DetalleVenta({ venta, closeModal }) {
           </table>
         </div>
 
-        <div style={{ textAlign: 'right', marginTop: '20px', borderTop: '1px solid #ccc', paddingTop: '10px' }}>
-            <h3 style={{ color: '#333' }}>
-                Total Pagado: <span style={{ color: '#28a745' }}>${totalCalculado.toFixed(2)}</span>
-            </h3>
+        <div className="total-container">
+          <div className="total-label">Total Pagado:</div>
+          <div className="total-monto">{totalCalculado.toFixed(2)}</div>
         </div>
       </div>
     </div>

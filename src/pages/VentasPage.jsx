@@ -92,14 +92,14 @@ function VentasPage() {
         Historial de Ventas
       </div>
 
-      <div className="form-container">
+      <div className="form-container form-container-venta">
         <input
           type="text"
           id="filtro-clientes"
           placeholder="Buscar por cliente o vendedor"
           onChange={handleFilterChange}
           value={filtro}
-          className="input-filtro"
+          className="input-filtro "
         />
       </div>
 

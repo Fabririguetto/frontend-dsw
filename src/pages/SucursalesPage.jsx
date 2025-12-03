@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import useSucursales from '../hooks/useHookSuc';
 import Modal from '../components/ModalSucursal';
 import { Store as StoreIcon } from '@mui/icons-material';
+import '../styles/SucursalesPage.css';
+
 const SucursalesPage = () => {
   const { sucursales, fetchSucursales, error } = useSucursales();
   const [filtro, setFiltro] = useState('');
