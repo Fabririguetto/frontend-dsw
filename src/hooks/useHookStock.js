@@ -2,192 +2,201 @@ import { useState, useEffect, useCallback } from 'react';
 import { getToken, logout } from '../services/authService';
 
 function useStock() {
-  const [productos, setProductos] = useState([]);
-  const [totalProductos, setTotalProductos] = useState(0);
-  const [formData, setFormData] = useState({
-    articulo: '',
-    descripcion: '',
-    cantidad: '',
-    monto: '',
-    idProducto: '',
-  });
-  const [filters, setFilters] = useState({
-    estado: 'Disponible',
-    nombreProducto: '',
-  });
-  const [sortConfig, setSortConfig] = useState({ key: 'idProducto', direction: 'ascending' });
-  const [page, setPage] = useState(0);
-  const [limit, setLimit] = useState(5);
+  const [productos, setProductos] = useState([]);
+  const [totalProductos, setTotalProductos] = useState(0);
+  const [formData, setFormData] = useState({
+    articulo: '',
+    descripcion: '',
+    cantidad: '',
+    monto: '',
+    idProducto: '',
+  });
+  const [filters, setFilters] = useState({
+    estado: 'Disponible',
+    nombreProducto: '',
+  });
+  const [sortConfig, setSortConfig] = useState({ key: 'idProducto', direction: 'ascending' });
+  const [page, setPage] = useState(0);
+  const [limit, setLimit] = useState(5);
 
-  const sendRequest = async (url, method = 'GET', body = null) => {
-    const token = getToken();
-    
-    const headers = {
-      'Content-Type': 'application/json',
-    };
+  const sendRequest = async (url, method = 'GET', body = null) => {
+    const token = getToken();
+    
+    const headers = {
+      'Content-Type': 'application/json',
+    };
 
-    if (token) {
-      headers['Authorization'] = `Bearer ${token}`;
-    }
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
 
-    const options = { method, headers };
-  
-    if (body) {
-      options.body = JSON.stringify(body);
-    }
-  
-    try {
-      const response = await fetch(url, options);
-      
-      if (response.status === 401 || response.status === 403) {
-        logout();
-        return null;
-      }
+    const options = { method, headers };
+  
+    if (body) {
+      options.body = JSON.stringify(body);
+    }
+  
+    try {
+      const response = await fetch(url, options);
+      
+      if (response.status === 401 || response.status === 403) {
+        logout();
+        return null;
+      }
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Error en la petición');
-      }
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Error en la petición');
+      }
 
-      return await response.json();
-    } catch (error) {
-      console.error('Error en la solicitud:', error);
-      throw error;
-    }
-  };
+      return await response.json();
+    } catch (error) {
+      console.error('Error en la solicitud:', error);
+      throw error;
+    }
+  };
 
-  const fetchProductos = useCallback(async () => {
-    const nombreProducto = filters.nombreProducto || '';
-    const maxLimit = 40;  
-    const minLimit = 5;
-    const validatedLimit = limit > maxLimit ? maxLimit : (limit < minLimit ? minLimit : limit);
-    
-    const totalPages = Math.ceil(totalProductos / validatedLimit) || 1;
-    const validatedPage = page >= totalPages ? totalPages - 1 : (page < 0 ? 0 : page);
-  
-    const url = `http://localhost:3500/stock?producto=${encodeURIComponent(nombreProducto)}&pagina=${validatedPage}&limite=${validatedLimit}`;
-  
-    try {
-      const data = await sendRequest(url);
-      
-      if (data && Array.isArray(data.productos)) {
-        setProductos(data.productos);
-        setTotalProductos(data.totalProductos);
-      } else if (data) {
-        setProductos([]);
-      }
-    } catch (error) {
-      console.error('Error al obtener productos:', error);
-    }
-  }, [page, limit, filters, totalProductos]);
+  const fetchProductos = useCallback(async () => {
+    const nombreProducto = filters.nombreProducto || '';
+    const maxLimit = 40;  
+    const minLimit = 5;
+    const validatedLimit = limit > maxLimit ? maxLimit : (limit < minLimit ? minLimit : limit);
+    
+    const totalPages = Math.ceil(totalProductos / validatedLimit) || 1;
+    const validatedPage = page >= totalPages ? totalPages - 1 : (page < 0 ? 0 : page);
+  
+    const url = `http://localhost:3500/stock?producto=${encodeURIComponent(nombreProducto)}&pagina=${validatedPage}&limite=${validatedLimit}`;
+  
+    try {
+      const data = await sendRequest(url);
+      
+      if (data && Array.isArray(data.productos)) {
+        setProductos(data.productos);
+        setTotalProductos(data.totalProductos);
+      } else if (data) {
+        setProductos([]);
+      }
+    } catch (error) {
+      console.error('Error al obtener productos:', error);
+    }
+  }, [page, limit, filters, totalProductos]);
 
-  useEffect(() => {
-    fetchProductos();
-  }, [fetchProductos]);
+  useEffect(() => {
+    fetchProductos();
+  }, [fetchProductos]);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-  const handleFilterChange = (e) => {
-    const { name, value } = e.target;
-    setFilters((prevFilters) => ({ ...prevFilters, [name]: value }));
-    setPage(0);
-  };
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters((prevFilters) => ({ ...prevFilters, [name]: value }));
+    setPage(0);
+  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    formData.idProducto ? updateProducto(formData.idProducto, formData) : createProducto(formData);
-  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    formData.idProducto ? updateProducto(formData.idProducto, formData) : createProducto(formData);
+  };
 
-  const createProducto = (producto) => {
-    sendRequest('http://localhost:3500/stock', 'POST', producto)
-      .then(() => {
-        fetchProductos();
-        resetForm();
-      })
-      .catch((error) => console.error('Error al ingresar el producto:', error));
-  };
+  const createProducto = (producto) => {
+    sendRequest('http://localhost:3500/stock', 'POST', producto)
+      .then(() => {
+        fetchProductos();
+        resetForm();
+      })
+      .catch((error) => console.error('Error al ingresar el producto:', error));
+  };
 
-  const updateProducto = (id, producto) => {
-    sendRequest(`http://localhost:3500/stock/${id}`, 'PUT', producto)
-      .then(() => {
-        fetchProductos();
-        resetForm();
-      })
-      .catch((error) => console.error('Error al actualizar el producto:', error));
-  };
+  const updateProducto = (id, producto) => {
+    sendRequest(`http://localhost:3500/stock/${id}`, 'PUT', producto)
+      .then(() => {
+        fetchProductos();
+        resetForm();
+      })
+      .catch((error) => console.error('Error al actualizar el producto:', error));
+  };
 
-  const resetForm = () => {
-    setFormData({ articulo: '', descripcion: '', cantidad: '', monto: '', idProducto: '' });
-  };
+  const resetForm = () => {
+    setFormData({ articulo: '', descripcion: '', cantidad: '', monto: '', idProducto: '' });
+  };
 
-  const handleEdit = (producto) => {
-    setFormData({
-      idProducto: producto.idProducto,
-      articulo: producto.articulo,
-      descripcion: producto.descripcion,
-      cantidad: producto.cantidad,
-      monto: producto.monto,
-    });
-  };
+  const handleEdit = (producto) => {
+    setFormData({
+      idProducto: producto.idProducto,
+      articulo: producto.articulo,
+      descripcion: producto.descripcion,
+      cantidad: producto.cantidad,
+      monto: producto.monto,
+    });
+  };
 
-  const handleElim = (idProducto, estadoActual) => {
-    const confirmDelete = window.confirm('¿Estás seguro de que deseas cambiar el estado de este producto?');
-    if (confirmDelete) {
-      sendRequest(`http://localhost:3500/stockelim/${idProducto}`, 'PUT', { estado: estadoActual })
-        .then(() => fetchProductos())
-        .catch((error) => console.error('Error al eliminar el producto:', error));
-    }
-  };
+  // CORRECCIÓN: Calcular el nuevo estado para el borrado lógico
+  const handleElim = (idProducto, estadoActual) => {
+    const confirmDelete = window.confirm('¿Estás seguro de que deseas cambiar el estado de este producto?');
+    
+    // Si el estado actual es "Disponible", el nuevo estado debe ser "No Disponible" o similar.
+    // Si ya está "No Disponible", lo volvemos a "Disponible" (esto es opcional, pero hace la función reversible).
+    const nuevoEstado = (estadoActual === 'Disponible' || estadoActual === 'Alta') 
+                        ? 'No Disponible' 
+                        : 'Disponible'; // Si no es Disponible, lo activamos
 
-  const requestSort = (key) => {
-    let direction = 'ascending';
-    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
-      direction = 'descending';
-    }
-    setSortConfig({ key, direction });
-  };
+    if (confirmDelete) {
+      // Enviamos el NUEVO estado que queremos asignar al producto.
+      sendRequest(`http://localhost:3500/stockelim/${idProducto}`, 'PUT', { estado: nuevoEstado }) 
+        .then(() => fetchProductos())
+        .catch((error) => console.error('Error al eliminar el producto:', error));
+    }
+  };
 
-  const sortedProductos = [...productos].sort((a, b) => {
-    let valA = a[sortConfig.key];
-    let valB = b[sortConfig.key];
+  const requestSort = (key) => {
+    let direction = 'ascending';
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    setSortConfig({ key, direction });
+  };
 
-    if (['monto', 'cantidad', 'idProducto'].includes(sortConfig.key)) {
-        valA = Number(valA);
-        valB = Number(valB);
-    } else {
-        valA = valA ? valA.toString().toLowerCase() : '';
-        valB = valB ? valB.toString().toLowerCase() : '';
-    }
+  const sortedProductos = [...productos].sort((a, b) => {
+    let valA = a[sortConfig.key];
+    let valB = b[sortConfig.key];
 
-    if (valA < valB) {
-      return sortConfig.direction === 'ascending' ? -1 : 1;
-    }
-    if (valA > valB) {
-      return sortConfig.direction === 'ascending' ? 1 : -1;
-    }
-    return 0;
-  });
+    if (['monto', 'cantidad', 'idProducto'].includes(sortConfig.key)) {
+        valA = Number(valA);
+        valB = Number(valB);
+    } else {
+        valA = valA ? valA.toString().toLowerCase() : '';
+        valB = valB ? valB.toString().toLowerCase() : '';
+    }
 
-  return {
-    sortedProductos,
-    formData,
-    filters,
-    handleInputChange,
-    handleFilterChange,
-    handleSubmit,
-    handleEdit,
-    handleElim,
-    requestSort,
-    resetForm,
-    page,
-    limit,
-    setPage,
-    setLimit,
-    totalProductos,
-  };
+    if (valA < valB) {
+      return sortConfig.direction === 'ascending' ? -1 : 1;
+    }
+    if (valA > valB) {
+      return sortConfig.direction === 'ascending' ? 1 : -1;
+    }
+    return 0;
+  });
+
+  return {
+    sortedProductos,
+    formData,
+    filters,
+    handleInputChange,
+    handleFilterChange,
+    handleSubmit,
+    handleEdit,
+    handleElim,
+    requestSort,
+    resetForm,
+    page,
+    limit,
+    setPage,
+    setLimit,
+    totalProductos,
+  };
 }
 
 export default useStock;

@@ -52,6 +52,7 @@ function StockPage() {
 <div className="form-container">
         <input
           type="text"
+          name="nombreProducto"
           value={filters.nombreProducto}
           onChange={handleFilterChange}
           placeholder="Buscar por artículo o descripción"

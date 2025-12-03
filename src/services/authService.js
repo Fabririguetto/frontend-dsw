@@ -23,6 +23,30 @@ export const login = async (email, password) => {
     }
 };
 
+
+export const resetPasswordDirect = async (email, newPassword) => {
+    try {
+        // Esta ruta debe coincidir con la que creaste en tu backend
+        const response = await fetch(`${API_URL}/auth/reset-direct`, { 
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, newPassword })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || 'Error al restablecer contraseña');
+        }
+
+        return data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+
+
 export const logout = () => {
     localStorage.clear();
     window.location.href = '/';
