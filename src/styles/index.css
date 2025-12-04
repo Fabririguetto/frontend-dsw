@@ -1,4 +1,4 @@
-/*
+
 :root {
   --primary-color: #1976d2;
   --primary-hover: #1565c0;
@@ -135,8 +135,8 @@ button:hover, .card-button:hover {
 
 button:focus, .card-button:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(97, 218, 251, 0.4); /* Foco celeste suave */
-/*}
+  box-shadow: 0 0 0 3px rgba(97, 218, 251, 0.4);}
+
 
 input, select {
   width: 100%;
@@ -245,7 +245,7 @@ input:focus, select:focus {
 
 .btn-cancel:hover {
   background-color: var(--danger) !important;
-}*/
+}
 
 /* --------------------------------------------------
     ESTILOS BASE (Responsive de Tablas)

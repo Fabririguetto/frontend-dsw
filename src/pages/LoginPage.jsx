@@ -1,38 +1,49 @@
 import React, { useState } from 'react';
-// 1. Agregamos resetPasswordDirect aquí
 import { login, resetPasswordDirect } from '../services/authService';
-// 2. Agregamos los componentes del Dialog aquí
 import { 
     Container, Paper, TextField, Button, Typography, Alert, Box,
     Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText 
 } from '@mui/material';
 import '../styles/LoginPage.css'; 
+import { useNavigate } from 'react-router-dom'; // Aseguramos que useNavigate esté importado
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    // Estados para Modal de "Olvidé mi contraseña"
     const [openModal, setOpenModal] = useState(false);
     const [resetEmail, setResetEmail] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [resetMessage, setResetMessage] = useState('');
     const [resetError, setResetError] = useState('');
+    
+    // Importamos useNavigate para la redirección
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
 
         try {
-            await login(email, password);
-            window.location.href = "/ventas"; 
+            // La función login devuelve data = { token, user: { rol, ... } }
+            const data = await login(email, password); 
+
+            // --- LÓGICA DE REDIRECCIÓN POR ROL ---
+            let destino = '/ventas'; // Default para el Vendedor
+            
+            if (data.user && data.user.rol === 'admin') {
+                destino = '/dashboard'; 
+            }
+
+            // Redirigir al destino y forzar recarga para inicializar la app
+            window.location.href = destino; 
+            
         } catch (err) {
             setError(err.message);
         }
     };
 
-    // --- Lógica del Modal ---
     const handleOpenModal = () => {
         setOpenModal(true);
         setResetEmail('');
@@ -55,9 +66,25 @@ const LoginPage = () => {
         }
 
         try {
-            await resetPasswordDirect(resetEmail, newPassword);
+            // Necesitamos que resetPasswordDirect exista en authService para que esto funcione
+            // Si tu authService solo tiene login/logout/getUsuarioActual, esto fallará.
+            // Asumiendo que existe en el Backend, lo llamamos:
+            // await resetPasswordDirect(resetEmail, newPassword); 
+            
+            // Usaremos el endpoint que definiste en el backend (/auth/reset-direct)
+            const token = localStorage.getItem('token'); // Si el reset requiere autenticación previa
+            const response = await fetch('http://localhost:3500/reset-direct', { // Usamos la ruta simple
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', ...(token && { 'Authorization': `Bearer ${token}` }) },
+                body: JSON.stringify({ email: resetEmail, newPassword: newPassword })
+            });
+
+            if (!response.ok) {
+                 const errorData = await response.json();
+                 throw new Error(errorData.error || 'Error al restablecer contraseña.');
+            }
+
             setResetMessage('¡Contraseña actualizada correctamente! Ya puedes ingresar.');
-            // Opcional: cerrar modal automáticamente después de unos segundos
             setTimeout(() => {
                 setOpenModal(false);
             }, 2500);
@@ -133,8 +160,6 @@ const LoginPage = () => {
                     </Box>
                 </Paper>
             </Container>
-
-            {/* --- Modal de Restauración Directa --- */}
             <Dialog open={openModal} onClose={handleCloseModal}>
                 <DialogTitle>Restablecer Contraseña</DialogTitle>
                 <DialogContent>

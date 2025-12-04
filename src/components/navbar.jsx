@@ -20,6 +20,7 @@ const getActiveClass = (path) => {
     if (location.pathname !== path) return '';
     
     switch(path) {
+    case '/dashboard': return 'nav-btn-active-dashboard';
     case '/ventas': return 'nav-btn-active-ventas';
     case '/stock': return 'nav-btn-active-stock';
     case '/clientes': return 'nav-btn-active-clientes';
@@ -35,8 +36,13 @@ return (
         <Typography variant="h6" className="navbar-title">
         Gestión DSW
         </Typography>
-
+        
         <Box className="navbar-center-container">
+            {user.rol === 'admin' && (
+                <Button color="inherit" component={Link} to="/dashboard" className={getActiveClass('/dashboard')}>
+                    Dashboard
+                </Button>
+            )}
             <Button color="inherit" component={Link} to="/ventas" className={getActiveClass('/ventas')}>Ventas</Button>
             <Button color="inherit" component={Link} to="/stock" className={getActiveClass('/stock')}>Stock</Button>
             <Button color="inherit" component={Link} to="/clientes" className={getActiveClass('/clientes')}>Clientes</Button>

@@ -66,6 +66,14 @@
     background-color: #00695c !important; 
 }
 
+.nav-btn-active-dashboard { 
+    background-color: #50c878 !important;
+    color: white !important;
+}
+.nav-btn-active-dashboard:hover { 
+    background-color: #3cb371 !important;
+}
+
 .btn-CerrarSesion {
     background-color: white !important;
     color: #6c757d !important;
@@ -95,5 +103,5 @@
     position: relative;
     top: -2px;
     margin-right: 5px;}
- 
-/* Estilos Base de Material UI (Manteniendo los colores del usuario)*/
+
+

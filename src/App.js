@@ -7,9 +7,9 @@ import ClientesPage from './pages/ClientesPage';
 import SucursalesPage from './pages/SucursalesPage';
 import VentasPage from './pages/VentasPage';
 import EmpleadosPage from './pages/EmpleadosPage';
+import DashboardPage from './pages/dashboardPage';
 import LoginPage from './pages/LoginPage';
 import Navbar from './components/navbar'; 
-
 import DetalleVenta from './components/DetalleVenta';
 import CargaVenta from './components/CargaVenta'; 
 
@@ -43,8 +43,8 @@ function App() {
 
         <div className="page-container"> 
           <Routes>
+            <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/" element={<Navigate to="/ventas" />} />
-            
             <Route path="/ventas" element={<VentasPage />} />
             <Route path="/stock" element={<StockPage />} />
             <Route path="/clientes" element={<ClientesPage />} />

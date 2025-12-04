@@ -1,7 +1,7 @@
 .login-paper {
     padding: 40px;
-    border-radius: 16px !important; /* Bordes más redondeados */
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important; /* Sombra suave y difusa */
+    border-radius: 16px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
     background-color: #ffffff !important;
     display: flex;
     flex-direction: column;

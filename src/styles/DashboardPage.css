@@ -1,0 +1,66 @@
+.dashboard-grid {
+    margin-top: 20px;
+}
+
+.dashboard-card {
+    height: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-4px);
+}
+
+.card-title {
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #333;
+}
+
+.card-number {
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.card-subtitle {
+    color: #666;
+}
+
+.card-list {
+    padding: 0;
+}
+
+.card-ventas {
+    border-top: 4px solid #2e7d32;
+}
+
+.card-ingresos {
+    border-top: 4px solid #1976d2;
+}
+
+.card-stock-bajo {
+    border-top: 4px solid #ff9800;
+}
+
+.card-sin-stock {
+    border-top: 4px solid #d32f2f;
+}
+
+.card-top-productos {
+    border-top: 4px solid #7b1fa2;
+}
+
+.card-top-vendedores {
+    border-top: 4px solid #ed6c02;
+}
+
+.ingreso-monto {
+    font-size: 43px !important;
+}
+
+.dashboard-icon {
+    color: #50c878;
+    margin-right: 8px;
+}
