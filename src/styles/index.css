@@ -1,3 +1,4 @@
+/*
 :root {
   --primary-color: #1976d2;
   --primary-hover: #1565c0;
@@ -135,7 +136,7 @@ button:hover, .card-button:hover {
 button:focus, .card-button:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(97, 218, 251, 0.4); /* Foco celeste suave */
-}
+/*}
 
 input, select {
   width: 100%;
@@ -244,4 +245,135 @@ input:focus, select:focus {
 
 .btn-cancel:hover {
   background-color: var(--danger) !important;
+}*/
+
+/* --------------------------------------------------
+    ESTILOS BASE (Responsive de Tablas)
+    --------------------------------------------------
+    Estos estilos se aplican a todas las tablas 
+    para asegurar la responsividad Mobile First.
+*/
+
+/* Contenedor responsivo: Agrega scroll horizontal en dispositivos pequeños */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto; /* CLAVE: Permite el scroll horizontal en pantallas pequeñas */
+    margin: 20px auto;
+}
+
+/* Estilo principal para la etiqueta <table> */
+table {
+    /* Asegura que la tabla no se colapse en móvil, forzando el scroll horizontal */
+    min-width: 650px; 
+    width: 100%; 
+    border-collapse: collapse;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap; /* CLAVE: Evita que el texto de las celdas salte de línea */
+}
+
+th {
+    background-color: #4a90e2; /* Color de encabezado (manteniendo tu estilo) */
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+th:hover {
+    background-color: #357ab8; /* Color de hover de encabezado (manteniendo tu estilo) */
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* --------------------------------------------------
+    ESTILOS DE BOTONES Y OTROS ELEMENTOS (Manteniendo tu estilo)
+    --------------------------------------------------
+*/
+
+/* Estilo general para botones, haciéndolos flexibles y adaptables en layouts */
+button {
+    /* Ajustes para Mobile First: Permite que el botón se adapte bien */
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    flex: 1; 
+    min-width: 150px;
+    font-size: 16px;
+    height: 45px;
+}
+
+button:hover {
+    background-color: #357ab8;
+}
+
+.pagination{
+    display: flex;
+    /* Añadir media query para centrar/ajustar la paginación en móvil si es necesario,
+       aunque la paginación de MUI ya es responsive. */
+}
+
+.stock-icon {
+    color: #2196f3;
+    margin-right: 8px
+}
+
+.form-container-stock{
+    border-left: 4px solid #2196f3 !important;
+}
+
+/* Estilos de botones específicos */
+.btn-edit {
+    background-color: #1976d2;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    margin-right: 8px;
+    font-size: 14px;
+    min-width: auto;
+    height: auto;
+    /* Es crucial que estos botones específicos no hereden el 'flex: 1' del selector 'button'
+       cuando están en las celdas de acción (td). La propiedad flex: none lo asegura. */
+    flex: none; 
+}
+
+.btn-edit:hover {
+    background-color: #1565c0;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    min-width: auto;
+    height: auto;
+    flex: none;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+.btn-cancel {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-cancel:hover {
+    background-color: #c82333;
 }

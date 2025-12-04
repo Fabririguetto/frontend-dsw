@@ -159,7 +159,7 @@ function useStock() {
     setSortConfig({ key, direction });
   };
 
-  const sortedProductos = [...productos].sort((a, b) => {
+ const sortedProductos = [...productos].sort((a, b) => {
     let valA = a[sortConfig.key];
     let valB = b[sortConfig.key];
 

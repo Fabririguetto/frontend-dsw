@@ -115,7 +115,7 @@ function VentasPage() {
 
       {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
 
-      <div id="tabla-ventas-container">
+      <div className="table-responsive">
         <table id="tabla-ventas" className="tabla-negra">
           <thead>
             <tr>

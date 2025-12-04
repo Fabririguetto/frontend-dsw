@@ -131,33 +131,43 @@ const ClientesPage = () => {
     </div>
   </form>
 </div>
+    <div className="table-responsive">
+      <table id="tabla-clientes" className="tabla-negra">
+        <thead> 
+          <tr>
+            <th onClick={() => requestSort('dni')} style={{ cursor: 'pointer', userSelect: 'none' }}>DNI
+              ↕</th>
+            <th onClick={() => requestSort('nombre_apellidoCli')} style={{ cursor: 'pointer', userSelect: 'none' }}>Nombre ↕</th>
+            <th>Dirección</th>  
+            <th>Contacto</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {clientes.length === 0 ? (
+            <tr>
+              <td colSpan="5" style={{ textAlign: 'center', padding: '20px' }}>
+                No se encontraron clientes.
+              </td>
+            </tr>
+          ) : (
+            clientes.map((cli) => (
+              <tr key={cli.idCliente}>
+                <td style={{ fontWeight: 'bold' }}>{cli.dni}</td>
+                <td>{cli.nombre_apellidoCli}</td>
 
-      <TableContainer component={Paper} className="table-container">
-        <Table sx={{ minWidth: 650 }}>
-          <TableHead>
-            <TableRow className="table-header-row">
-              <TableCell onClick={() => requestSort('dni')} className="table-header-cell pointer">DNI ↕</TableCell>
-              <TableCell onClick={() => requestSort('nombre_apellidoCli')} className="table-header-cell pointer">Nombre ↕</TableCell>
-              <TableCell className="table-header-cell">Dirección</TableCell>
-              <TableCell className="table-header-cell">Contacto</TableCell>
-              <TableCell align="center" className="table-header-cell">Acciones</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {clientes.map((cli) => (
-              <TableRow key={cli.idCliente} hover>
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>{cli.dni}</TableCell>
-                <TableCell>{cli.nombre_apellidoCli}</TableCell>
-                <TableCell>{cli.direccion}</TableCell>
-                <TableCell>{cli.contacto}</TableCell>
-                <TableCell align="center">
-                  <Tooltip title="Editar"><IconButton className="action-btn-edit" onClick={() => handleEdit(cli)}><EditIcon /></IconButton></Tooltip>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                <td>{cli.direccion}</td>
+                <td>{cli.contacto}</td>
+                <td>
+                  <button className="btn-edit" onClick={() => handleEdit(cli)}> Editar</button>
+                </td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+    </div>
+
     </div>
   );
 };
