@@ -26,7 +26,7 @@ export const login = async (email, password) => {
 
 export const resetPasswordDirect = async (email, newPassword) => {
     try {
-        // Esta ruta debe coincidir con la que creaste en tu backend
+        // CORRECCIÓN CLAVE: Se agrega el prefijo /auth a la URL
         const response = await fetch(`${API_URL}/auth/reset-direct`, { 
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -51,7 +51,6 @@ export const logout = () => {
     localStorage.clear();
     window.location.href = '/';
 };
-
 
 export const getUsuarioActual = () => {
     const usuario = localStorage.getItem('usuario');

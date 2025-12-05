@@ -66,14 +66,8 @@ const LoginPage = () => {
         }
 
         try {
-            // Necesitamos que resetPasswordDirect exista en authService para que esto funcione
-            // Si tu authService solo tiene login/logout/getUsuarioActual, esto fallará.
-            // Asumiendo que existe en el Backend, lo llamamos:
-            // await resetPasswordDirect(resetEmail, newPassword); 
-            
-            // Usaremos el endpoint que definiste en el backend (/auth/reset-direct)
-            const token = localStorage.getItem('token'); // Si el reset requiere autenticación previa
-            const response = await fetch('http://localhost:3500/reset-direct', { // Usamos la ruta simple
+            const token = localStorage.getItem('token'); 
+            const response = await fetch('http://localhost:3500/auth/reset-direct', { 
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', ...(token && { 'Authorization': `Bearer ${token}` }) },
                 body: JSON.stringify({ email: resetEmail, newPassword: newPassword })

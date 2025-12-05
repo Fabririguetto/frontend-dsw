@@ -1,71 +1,91 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, NavLink, Route, Routes, Navigate } from 'react-router-dom';
-import { getUsuarioActual, logout } from './services/authService';
-
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import NavBar from './components/navbar';
+import LoginPage from './pages/LoginPage';
+import VentasPage from './pages/VentasPage';
 import StockPage from './pages/StockPage';
 import ClientesPage from './pages/ClientesPage';
-import SucursalesPage from './pages/SucursalesPage';
-import VentasPage from './pages/VentasPage';
 import EmpleadosPage from './pages/EmpleadosPage';
-import DashboardPage from './pages/dashboardPage';
-import LoginPage from './pages/LoginPage';
-import Navbar from './components/navbar'; 
-import DetalleVenta from './components/DetalleVenta';
-import CargaVenta from './components/CargaVenta'; 
+import SucursalesPage from './pages/SucursalesPage';
+import CargaVenta from './components/CargaVenta';
+import DashboardPage from './pages/DashboardPage'; 
+import DetalleVenta from './components/DetalleVenta'; 
+import { getToken, getUsuarioActual } from './services/authService'; 
+import './styles/index.css';
+
+// Componente PrivateRoute para rutas protegidas
+const PrivateRoute = ({ children, roleRequired }) => {
+    const isAuthenticated = !!getToken();
+    const user = getUsuarioActual();
+
+    if (!isAuthenticated) {
+        return <Navigate to="/login" />;
+    }
+    
+    if (!roleRequired || user.rol === roleRequired) {
+        return children;
+    }
+
+    return <Navigate to={user.rol === 'admin' ? "/dashboard" : "/"} />;
+};
+
+// Componente para manejar la redirección post-login desde la ruta raíz (/)
+const InitialRedirect = () => {
+    const isAuthenticated = !!getToken();
+    const user = getUsuarioActual();
+
+    if (!isAuthenticated) {
+        return <Navigate to="/login" replace />;
+    }
+    
+    if (user.rol === 'admin') {
+        return <Navigate to="/dashboard" replace />;
+    }
+    
+    return <Navigate to="/ventas" replace />;
+};
+
 
 function App() {
-  const [usuario, setUsuario] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const user = getUsuarioActual();
-    setUsuario(user);
-  }, []);
+    useEffect(() => {
+        setLoading(false);
+    }, []);
 
-  const getLinkClass = ({ isActive }) => isActive ? "active" : "";
+    if (loading) {
+        return <div style={{ textAlign: 'center', padding: '50px' }}>Cargando aplicación...</div>;
+    }
 
-  if (!usuario) {
     return (
-      <BrowserRouter>
-        <Routes>
-          <Route path="*" element={<LoginPage />} />
-        </Routes>
-      </BrowserRouter>
+        <Router>
+            <div className="App">
+                <NavBar />
+                <main>
+                    <Routes>
+                        <Route path="/login" element={<LoginPage />} />
+                        
+                        <Route path="/" element={<InitialRedirect />} /> 
+                        
+                        <Route path="/dashboard" element={<PrivateRoute><DashboardPage /></PrivateRoute>} />
+
+                        <Route path="/ventas" element={<PrivateRoute><VentasPage /></PrivateRoute>} />
+                        <Route path="/cargaventa/nueva" element={<PrivateRoute><CargaVenta /></PrivateRoute>} />
+                        <Route path="/clientes" element={<PrivateRoute><ClientesPage /></PrivateRoute>} />
+                        <Route path="/sucursales" element={<PrivateRoute><SucursalesPage /></PrivateRoute>} />
+                        <Route path="/stock" element={<PrivateRoute><StockPage /></PrivateRoute>} />
+
+                        <Route path="/empleados" element={<PrivateRoute roleRequired="admin"><EmpleadosPage /></PrivateRoute>} />
+
+                        <Route path="/detalle_venta/:idVenta" element={<PrivateRoute><DetalleVenta /></PrivateRoute>} />
+                        <Route path="/cargaventa/:idVenta" element={<PrivateRoute><CargaVenta /></PrivateRoute>} />
+
+                        <Route path="*" element={<InitialRedirect />} />
+                    </Routes>
+                </main>
+            </div>
+        </Router>
     );
-  }
-
-
-  return (
-    <BrowserRouter>
-      <div className="App">
-        
-
-        <Navbar />
-
-        <div className="page-container"> 
-          <Routes>
-            <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/" element={<Navigate to="/ventas" />} />
-            <Route path="/ventas" element={<VentasPage />} />
-            <Route path="/stock" element={<StockPage />} />
-            <Route path="/clientes" element={<ClientesPage />} />
-            
-
-            {usuario.rol === 'admin' && (
-               <>
-                <Route path="/empleados" element={<EmpleadosPage />} />
-                <Route path="/sucursales" element={<SucursalesPage />} />
-               </>
-            )}
-
-            <Route path="/detalle_venta/:idVenta" element={<DetalleVenta />} />
-            <Route path="/cargaventa/:idVenta" element={<CargaVenta />} />
-            
-            <Route path="*" element={<Navigate to="/ventas" />} />
-          </Routes>
-        </div>
-      </div>
-    </BrowserRouter>
-  );
 }
 
 export default App;
