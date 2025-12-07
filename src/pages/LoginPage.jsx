@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { login, resetPasswordDirect } from '../services/authService';
+import { login } from '../services/authService';
 import { 
     Container, Paper, TextField, Button, Typography, Alert, Box,
     Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText 
 } from '@mui/material';
-import '../styles/LoginPage.css'; 
-import { useNavigate } from 'react-router-dom'; // Aseguramos que useNavigate esté importado
+import '../styles/LoginPage.css';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -17,27 +16,27 @@ const LoginPage = () => {
     const [newPassword, setNewPassword] = useState('');
     const [resetMessage, setResetMessage] = useState('');
     const [resetError, setResetError] = useState('');
-    
-    // Importamos useNavigate para la redirección
-    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
 
         try {
-            // La función login devuelve data = { token, user: { rol, ... } }
-            const data = await login(email, password); 
-
-            // --- LÓGICA DE REDIRECCIÓN POR ROL ---
-            let destino = '/ventas'; // Default para el Vendedor
+            await login(email, password);
             
-            if (data.user && data.user.rol === 'admin') {
-                destino = '/dashboard'; 
+            await new Promise(resolve => setTimeout(resolve, 50));
+            
+            const usuarioStr = localStorage.getItem('usuario');
+            let destino = '/ventas'; // Default para vendedor
+            
+            if (usuarioStr) {
+                const usuario = JSON.parse(usuarioStr);
+                if (usuario.rol === 'admin' || usuario.role === 'admin') {
+                    destino = '/dashboard';
+                }
             }
-
-            // Redirigir al destino y forzar recarga para inicializar la app
-            window.location.href = destino; 
+            
+            window.location.href = destino;
             
         } catch (err) {
             setError(err.message);
@@ -69,16 +68,19 @@ const LoginPage = () => {
             const token = localStorage.getItem('token'); 
             const response = await fetch('http://localhost:3500/auth/reset-direct', { 
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', ...(token && { 'Authorization': `Bearer ${token}` }) },
+                headers: { 
+                    'Content-Type': 'application/json', 
+                    ...(token && { 'Authorization': `Bearer ${token}` }) 
+                },
                 body: JSON.stringify({ email: resetEmail, newPassword: newPassword })
             });
 
             if (!response.ok) {
-                 const errorData = await response.json();
-                 throw new Error(errorData.error || 'Error al restablecer contraseña.');
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Error al restablecer contraseña.');
             }
 
-            setResetMessage('¡Contraseña actualizada correctamente! Ya puedes ingresar.');
+            setResetMessage('Contraseña actualizada correctamente! Ya puedes ingresar.');
             setTimeout(() => {
                 setOpenModal(false);
             }, 2500);
@@ -87,9 +89,7 @@ const LoginPage = () => {
         }
     };
 
-    
     return (
-        
         <div className="login-container">
             <Container component="main" maxWidth="xs">
                 <Paper elevation={0} className="login-paper">
@@ -116,7 +116,6 @@ const LoginPage = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             variant="outlined"
-                            
                             sx={{ '& .MuiOutlinedInput-root': { borderRadius: '8px' } }}
                         />
                         <TextField
@@ -154,11 +153,12 @@ const LoginPage = () => {
                     </Box>
                 </Paper>
             </Container>
+            
             <Dialog open={openModal} onClose={handleCloseModal}>
                 <DialogTitle>Restablecer Contraseña</DialogTitle>
                 <DialogContent>
                     <DialogContentText sx={{ mb: 2 }}>
-                        Ingresa tu correo electrónico y la nueva contraseña que deseas utilizar.
+                        Ingresa su correo electrónico y la nueva contraseña que deseas utilizar.
                     </DialogContentText>
 
                     {resetError && <Alert severity="error" sx={{ mb: 2 }}>{resetError}</Alert>}
