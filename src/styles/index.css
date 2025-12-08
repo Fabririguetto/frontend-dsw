@@ -74,6 +74,7 @@ table {
 
 .card {
     background-color: #fff;
+    width: 100%;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     max-width: 250px;
@@ -247,23 +248,14 @@ input:focus, select:focus {
   background-color: var(--danger) !important;
 }
 
-/* --------------------------------------------------
-    ESTILOS BASE (Responsive de Tablas)
-    --------------------------------------------------
-    Estos estilos se aplican a todas las tablas 
-    para asegurar la responsividad Mobile First.
-*/
-
-/* Contenedor responsivo: Agrega scroll horizontal en dispositivos pequeños */
+ /* ESTILOS BASE (Responsive de Tablas) */
 .table-responsive {
     width: 100%;
-    overflow-x: auto; /* CLAVE: Permite el scroll horizontal en pantallas pequeñas */
+    overflow-x: auto; 
     margin: 20px auto;
 }
 
-/* Estilo principal para la etiqueta <table> */
 table {
-    /* Asegura que la tabla no se colapse en móvil, forzando el scroll horizontal */
     min-width: 650px; 
     width: 100%; 
     border-collapse: collapse;
@@ -274,18 +266,18 @@ th, td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
-    white-space: nowrap; /* CLAVE: Evita que el texto de las celdas salte de línea */
+    white-space: nowrap; 
 }
 
 th {
-    background-color: #4a90e2; /* Color de encabezado (manteniendo tu estilo) */
+    background-color: #4a90e2;
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 th:hover {
-    background-color: #357ab8; /* Color de hover de encabezado (manteniendo tu estilo) */
+    background-color: #357ab8;
 }
 
 tbody tr:nth-child(even) {
@@ -296,14 +288,7 @@ tbody tr:hover {
     background-color: #f1f1f1;
 }
 
-/* --------------------------------------------------
-    ESTILOS DE BOTONES Y OTROS ELEMENTOS (Manteniendo tu estilo)
-    --------------------------------------------------
-*/
-
-/* Estilo general para botones, haciéndolos flexibles y adaptables en layouts */
 button {
-    /* Ajustes para Mobile First: Permite que el botón se adapte bien */
     padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
@@ -320,8 +305,6 @@ button:hover {
 
 .pagination{
     display: flex;
-    /* Añadir media query para centrar/ajustar la paginación en móvil si es necesario,
-       aunque la paginación de MUI ya es responsive. */
 }
 
 .stock-icon {
