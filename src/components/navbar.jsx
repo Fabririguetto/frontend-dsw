@@ -5,7 +5,6 @@ import { AppBar, Toolbar, Typography, Button, Box, IconButton } from '@mui/mater
 import { Person, Menu as MenuIcon, Close as CloseIcon, Logout as LogoutIcon } from '@mui/icons-material';
 import '../styles/navbar.css';
 
-
 const NavBar = () => {
     const [user, setUser] = useState({});
     const [menuOpen, setMenuOpen] = useState(false);
@@ -52,16 +51,21 @@ const NavBar = () => {
     return (
         <AppBar position="static" className={menuOpen ? 'menu-expanded' : ''}>
             <Toolbar className="navbar-toolbar">
-                <IconButton className="menu-toggle" onClick={toggleMenu} sx={{ display: { sm: 'none' } }}>
-                    {menuOpen ? <CloseIcon sx={{ color: 'white' }} /> : <MenuIcon sx={{ color: 'white' }} />}
-                </IconButton>
 
+                <Box className="navbar-left-container">
+                    <IconButton 
+                        className="menu-toggle" 
+                        onClick={toggleMenu} 
+                        disableFocusRipple={true}
+                        sx={{ display: { xs: 'block', sm: 'none' } }}>
+                        {menuOpen ? <CloseIcon sx={{ color: 'white' }} /> : <MenuIcon sx={{ color: 'white' }} />}
+                    </IconButton>
 
-               <Typography variant="h6" className="navbar-title">
-                    Gestión DSW
-                </Typography>
+                    <Typography variant="h6" className="navbar-title">
+                        Gestión DSW
+                    </Typography>
+                </Box>
                 
-
                 <Box className={`navbar-center-container ${menuOpen ? 'open' : ''}`}>
                     
                     {user.rol === 'admin' && (
@@ -84,18 +88,25 @@ const NavBar = () => {
                             <Button color="inherit" component={Link} to="/empleados" className={getActiveClass('/empleados')} onClick={() => setMenuOpen(false)}>Empleados</Button>
                             <Button color="inherit" component={Link} to="/sucursales" className={getActiveClass('/sucursales')} onClick={() => setMenuOpen(false)}>Sucursales</Button>
                         </>
-                     )}
-
+                    )}
+                    <Button 
+                        className="btn-CerrarSesion-mobile"
+                        onClick={handleLogout}
+                        sx={{ display: { xs: 'block', sm: 'none' } }}> 
+                        <LogoutIcon fontSize="small" sx={{ marginRight: 1 }} /> Cerrar Sesión
+                    </Button>
                 </Box>
 
                 <Box className="navbar-right-container">
                     <Typography variant="body2" className="user-name">
                         <Person className='icon-perfil'/>{user.nombre}
                     </Typography>
+                    <Button 
+                        className="btn-CerrarSesion"
+                        onClick={handleLogout}> 
+                        Cerrar Sesión 
+                    </Button>
                 </Box>
-                <Button 
-                className="btn-CerrarSesion"
-                onClick={handleLogout}> Cerrar Sesión </Button>
 
             </Toolbar>
         </AppBar>

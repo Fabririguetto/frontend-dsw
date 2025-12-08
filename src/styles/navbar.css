@@ -1,4 +1,4 @@
-:root {
+ :root {
     --navbar-bg: #1a237e; 
     --navbar-text: #ffffff; 
     --accent-color: #3498db; 
@@ -12,178 +12,165 @@
     --sucursales-bg: #00838f;
     --dashboard-bg: #50c878;
 
-    --navbar-height: 60px;
+    --navbar-height: 56px;
 }
 
 
 .MuiAppBar-root {
     background-color: var(--navbar-bg) !important;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 
 .navbar-toolbar {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    position: relative;
-    padding: 0 10px; 
-    min-height: var(--navbar-height);
+    justify-content: space-between; 
 }
 
-.navbar-title {
-    flex-grow: 0 !important;
-    font-weight: 700;
-    color: var(--navbar-text);
-    z-index: 10; 
-    padding: 10px 20px;
+.navbar-left-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
 }
 
-.menu-toggle {
-    display: block; 
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-size: 1.5rem;
-    z-index: 10;
+.navbar-right-container {
+    display: flex;
+    align-items: center;
+    display: none; 
 }
 
 .navbar-center-container {
-    position: absolute;
-    top: var(--navbar-height);
+    position: absolute; 
+    top: var(--navbar-height); 
     left: 0;
     width: 100%;
-    
-    display: flex; 
-    flex-direction: column;
     background-color: var(--navbar-bg); 
-    
+    flex-direction: column;
+    padding: 0;
+    opacity: 0; 
     max-height: 0;
+    display: block; 
     overflow: hidden;
-    opacity: 0;
-    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in;
-    z-index: 5;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease;
+    z-index: 100; 
 }
 
 .navbar-center-container.open {
     max-height: 500px; 
+    display: flex; 
     opacity: 1;
+    padding: 0; 
 }
 
-.navbar-center-container button,
-.navbar-center-container a {
-    padding: 12px 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    color: var(--navbar-text);
-    text-align: left;
+
+.navbar-center-container .MuiButton-root {
     width: 100%;
-    box-sizing: border-box;
-    font-weight: 500;
-    border-radius: 0 !important; 
-    text-transform: none !important;
-}
-
-.navbar-right-container {
-    display: none; 
+    justify-content: flex-start; 
+    padding: 10px 16px;
+    border-radius: 0;
+    color: white; 
 }
 
 
+.nav-btn-active-dashboard { 
+    background-color: var(--dashboard-bg) !important; 
+    color: white !important; 
+}
 
-.nav-btn-active-ventas { background-color: var(--ventas-bg) !important; }
-.nav-btn-active-ventas:hover { background-color: #1b5e20 !important; }
+.nav-btn-active-ventas { 
+    background-color: var(--ventas-bg) !important; 
+    color: white !important;
+}
 
-.nav-btn-active-stock { background-color: var(--stock-bg) !important; }
-.nav-btn-active-stock:hover { background-color: #1565c0 !important; }
+.nav-btn-active-stock { 
+    background-color: var(--stock-bg) !important; 
+    color: white !important;
+}
 
-.nav-btn-active-clientes { background-color: var(--clientes-bg) !important; }
-.nav-btn-active-clientes:hover { background-color: #6a1b9a !important; }
+.nav-btn-active-clientes { 
+    background-color: var(--clientes-bg) !important; 
+    color: white !important;
+}
 
-.nav-btn-active-empleados { background-color: var(--empleados-bg) !important; }
-.nav-btn-active-empleados:hover { background-color: #e65100 !important; }
+.nav-btn-active-empleados { 
+    background-color: var(--empleados-bg) !important; 
+    color: white !important;
+}
 
-.nav-btn-active-sucursales { background-color: var(--sucursales-bg) !important; }
-.nav-btn-active-sucursales:hover { background-color: #00695c !important; }
+.nav-btn-active-sucursales { 
+    background-color: var(--sucursales-bg) !important; 
+    color: white !important;
+}
 
-.nav-btn-active-dashboard { background-color: var(--dashboard-bg) !important; color: white !important; }
-.nav-btn-active-dashboard:hover { background-color: #3cb371 !important; }
 
-
-.btn-CerrarSesion {
-    background-color: white !important;
-    color: var(--secondary-text) !important;
-    height: 90% !important;
-    padding: 5px 5px !important;
-    border-radius: 5px !important;
-    cursor: pointer !important;
-    font-size: 12px !important;
-    font-weight: 600 !important;
-    text-transform: none !important;
-    width: 100%;
+.btn-CerrarSesion-mobile {
+    color: white !important;
+    background-color: var(--danger) !important; 
+    margin-top: 10px !important;
 }
 
 .user-name {
-    color: #bbdefb !important;
-    height: 100%;
-    width: 150px;
-    display: flex !important;
-    align-items: center;
-    font-weight: 500 !important;
-    font-size: 14px !important;
-    border-left: 2px solid rgba(255, 255, 255, 0.2) !important;
-    letter-spacing: 0.2px !important;
-    padding-left: 10px;
+    color: var(--navbar-text);
 }
 
 .icon-perfil {
-    position: relative;
-    top: -2px;
+    color: var(--navbar-text);
     margin-right: 5px;
 }
 
 
 @media (min-width: 600px) {
-
-    .btn-CerrarSesion-navbar-mobile {
-        display: none !important;
-    }
-
-    .navbar-toolbar {
-        padding: 0 20px;
-    }
     
     .menu-toggle {
-        display: none;
+        display: none !important;
     }
 
     .navbar-center-container {
         position: static;
+        max-height: none;
+        opacity: 1; 
         display: flex !important; 
         flex-direction: row;
-        transform: none;
-        left: auto;
+        align-items: center; 
         flex-grow: 1; 
-        justify-content: middle;
-        gap: 15px; 
-        margin-left: 20px;
-        max-height: none; 
-        opacity: 1; 
+        justify-content: center; 
         padding: 0;
         background-color: transparent; 
-
+        gap: 15px; 
     }
     
-    .navbar-center-container button,
-    .navbar-center-container a {
-        padding: 8px 12px;
-        border-bottom: none;
-        border-radius: 6px !important;
-        text-align: center;
+    .navbar-center-container .MuiButton-root {
+        width: auto;
+        justify-content: center;
+        transition: background-color 0.2s;
+        color: var(--navbar-text); 
+    }
+
+    .nav-btn-active-ventas { border-bottom-color: var(--ventas-bg) !important; }
+    .nav-btn-active-stock { border-bottom-color: var(--stock-bg) !important; }
+    .nav-btn-active-clientes { border-bottom-color: var(--clientes-bg) !important; }
+    .nav-btn-active-empleados { border-bottom-color: var(--empleados-bg) !important; }
+    .nav-btn-active-sucursales { border-bottom-color: var(--sucursales-bg) !important; }
+    .nav-btn-active-dashboard { border-bottom-color: var(--dashboard-bg) !important; }
+
+    .navbar-center-container .MuiButton-root:hover {
+        background-color: rgba(255, 255, 255, 0.2);
     }
     
     .navbar-right-container {
         display: flex !important;
-        position: static;
+        align-items: center;
         margin-left: auto; 
+        gap: 15px; 
+    }
+    
+    .btn-CerrarSesion {
+        display: flex !important;
+        color: var(--navbar-text) !important;
+        background-color: var(--danger) !important;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-weight: 600;
+        text-transform: none !important;
     }
 }

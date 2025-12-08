@@ -248,7 +248,6 @@ input:focus, select:focus {
   background-color: var(--danger) !important;
 }
 
- /* ESTILOS BASE (Responsive de Tablas) */
 .table-responsive {
     width: 100%;
     overflow-x: auto; 
@@ -316,7 +315,6 @@ button:hover {
     border-left: 4px solid #2196f3 !important;
 }
 
-/* Estilos de botones específicos */
 .btn-edit {
     background-color: #1976d2;
     color: white;
@@ -326,8 +324,6 @@ button:hover {
     font-size: 14px;
     min-width: auto;
     height: auto;
-    /* Es crucial que estos botones específicos no hereden el 'flex: 1' del selector 'button'
-       cuando están en las celdas de acción (td). La propiedad flex: none lo asegura. */
     flex: none; 
 }
 
