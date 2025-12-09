@@ -12,19 +12,16 @@ const useVentas = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   
-  // 🆕 Nuevos estados para el detalle de la venta
-  const [detalleVenta, setDetalleVenta] = useState(null); // Para almacenar el detalle de la venta
-  const [loadingDetalle, setLoadingDetalle] = useState(false); // Para el estado de carga del detalle
-  const [ventaSeleccionadaId, setVentaSeleccionadaId] = useState(null); // ID de la venta cuyo detalle se está cargando
+  const [detalleVenta, setDetalleVenta] = useState(null); 
+  const [loadingDetalle, setLoadingDetalle] = useState(false); 
+  const [ventaSeleccionadaId, setVentaSeleccionadaId] = useState(null); 
  
   const [sortConfig, setSortConfig] = useState({ key: 'idVenta', direction: 'descending' });
 
-  // Función para obtener la lista de ventas (ya existente)
   const fetchVentas = useCallback(async (filtro = '') => {
     setLoading(true);
     const token = getToken();
     
-    // ... (Lógica de fetchVentas) ...
     const params = new URLSearchParams();
     if (filtro) params.append('filtro', filtro);
     params.append('pagina', page);
