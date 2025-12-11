@@ -12,6 +12,7 @@ import LastPageIcon from '@mui/icons-material/LastPage';
 import { Inventory as InventoryIcon } from '@mui/icons-material';
 import {  Edit as EditIcon,  AddCircle as AddCircleIcon } from '@mui/icons-material';
 import '../styles/StockPage.css';
+import TablePaginationActions from '../components/TablePaginationActions';
 
 function StockPage() {
   const {
@@ -193,43 +194,6 @@ function StockPage() {
           </TableFooter>
         </table>
       </div>
-    </div>
-  );
-}
-
-function TablePaginationActions(props) {
-  const { count, page, rowsPerPage, onPageChange } = props;
-
-  const handleFirstPageButtonClick = (event) => {
-    onPageChange(event, 0);
-  };
-
-  const handleBackButtonClick = (event) => {
-    onPageChange(event, page - 1);
-  };
-
-  const handleNextButtonClick = (event) => {
-    onPageChange(event, page + 1);
-  };
-
-  const handleLastPageButtonClick = (event) => {
-    onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
-  };
-
-  return (
-    <div style={{ flexShrink: 0, marginLeft: 20 }}>
-      <IconButton onClick={handleFirstPageButtonClick} disabled={page === 0} aria-label="primera página">
-        <FirstPageIcon />
-      </IconButton>
-      <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label="página anterior">
-        <KeyboardArrowLeftIcon />
-      </IconButton>
-      <IconButton onClick={handleNextButtonClick} disabled={page >= Math.ceil(count / rowsPerPage) - 1} aria-label="página siguiente">
-        <KeyboardArrowRightIcon />
-      </IconButton>
-      <IconButton onClick={handleLastPageButtonClick} disabled={page >= Math.ceil(count / rowsPerPage) - 1} aria-label="última página">
-        <LastPageIcon />
-      </IconButton>
     </div>
   );
 }

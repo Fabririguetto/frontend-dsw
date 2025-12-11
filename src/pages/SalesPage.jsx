@@ -3,37 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import useSales from '../hooks/useSales'; 
 import SaleDetail from '../components/SaleDetail';
 import '../styles/SalesPage.css';
+import TablePaginationActions from '../components/TablePaginationActions';
 
 import { TablePagination, TableFooter, TableRow, IconButton } from '@mui/material';
 import { FirstPage as FirstPageIcon, KeyboardArrowLeft as KeyboardArrowLeftIcon,
           KeyboardArrowRight as KeyboardArrowRightIcon, LastPage as LastPageIcon,
           ReceiptLong as ReceiptIcon } from '@mui/icons-material';
-
-function TablePaginationActions(props) {
-  const { count, page, rowsPerPage, onPageChange } = props;
-
-  const handleFirstPageButtonClick = (event) => { onPageChange(event, 0); };
-  const handleBackButtonClick = (event) => { onPageChange(event, page - 1); };
-  const handleNextButtonClick = (event) => { onPageChange(event, page + 1); };
-  const handleLastPageButtonClick = (event) => { onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1)); };
-
-  return (
-    <div style={{ flexShrink: 0, marginLeft: 20 }}>
-      <IconButton onClick={handleFirstPageButtonClick} disabled={page === 0} aria-label="primera página">
-        <FirstPageIcon />
-      </IconButton>
-      <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label="página anterior">
-        <KeyboardArrowLeftIcon />
-      </IconButton>
-      <IconButton onClick={handleNextButtonClick} disabled={page >= Math.ceil(count / rowsPerPage) - 1} aria-label="página siguiente">
-        <KeyboardArrowRightIcon />
-      </IconButton>
-      <IconButton onClick={handleLastPageButtonClick} disabled={page >= Math.ceil(count / rowsPerPage) - 1} aria-label="última página">
-        <LastPageIcon />
-      </IconButton>
-    </div>
-  );
-}
 
 function SalesPage() {
   const { 
