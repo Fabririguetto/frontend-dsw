@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { login } from '../services/authService';
+import { login, resetPasswordDirect } from '../services/authService';
 import { useNavigate } from 'react-router-dom';
 import { 
     Container, Paper, TextField, Button, Typography, Alert, Box,
@@ -30,7 +30,7 @@ const LoginPage = () => {
             await new Promise(resolve => setTimeout(resolve, 50));
             
             const userStr = localStorage.getItem('user');
-            let destination = '/sales'; // Default para vendedor
+            let destination = '/sales';
             
             if (userStr) {
                 const user = JSON.parse(userStr);
@@ -58,7 +58,7 @@ const LoginPage = () => {
         setOpenModal(false);
     };
 
-    const handleResetSubmit = async () => {
+const handleResetSubmit = async () => {
         setResetError('');
         setResetMessage('');
         
@@ -68,29 +68,17 @@ const LoginPage = () => {
         }
 
         try {
-            const token = localStorage.getItem('token'); 
-            const response = await fetch('http://localhost:3500/auth/reset-direct', { 
-                method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json', 
-                    ...(token && { 'Authorization': `Bearer ${token}` }) 
-                },
-                body: JSON.stringify({ email: resetEmail, newPassword: newPassword })
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || 'Error al restablecer contraseña.');
-            }
+            await resetPasswordDirect(resetEmail, newPassword); 
 
             setResetMessage('Contraseña actualizada correctamente! Ya puedes ingresar.');
             setTimeout(() => {
                 setOpenModal(false);
-            }, 2500);
+            }, 1000);
         } catch (err) {
             setResetError(err.message);
         }
     };
+
 
     return (
         <div className="login-container">

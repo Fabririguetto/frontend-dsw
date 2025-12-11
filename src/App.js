@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import NavBar from './components/Navbar';
 import LoginPage from './pages/LoginPage';
 import SalesPage from './pages/SalesPage';
@@ -10,14 +10,14 @@ import BranchesPage from './pages/BranchesPage';
 import SaleUpload from './components/SaleUpload';
 import DashboardPage from './pages/DashboardPage'; 
 import SaleDetail from './components/SaleDetail'; 
-import { getToken, getCurrentUser } from './services/authService'; 
+import { isAuthenticated, getCurrentUser } from './services/authService'; 
 import './styles/index.css';
 
 const PrivateRoute = ({ children, roleRequired }) => {
-    const isAuthenticated = !!getToken();
+    const authenticated = isAuthenticated();
     const user = getCurrentUser();
 
-    if (!isAuthenticated) {
+    if (!authenticated || !user) {
         return <Navigate to="/login" />;
     }
     
@@ -29,10 +29,10 @@ const PrivateRoute = ({ children, roleRequired }) => {
 };
 
 const InitialRedirect = () => {
-    const isAuthenticated = !!getToken();
+    const authenticated = isAuthenticated();
     const user = getCurrentUser();
 
-    if (!isAuthenticated) {
+    if (!authenticated || !user) {
         return <Navigate to="/login" replace />;
     }
     
@@ -45,6 +45,7 @@ const InitialRedirect = () => {
 
 function App() {
     const [loading, setLoading] = useState(true);
+    const location = useLocation();
 
     useEffect(() => {
         setLoading(false);
@@ -54,33 +55,34 @@ function App() {
         return <div style={{ textAlign: 'center', padding: '50px' }}>Cargando aplicación...</div>;
     }
 
+    const hideNavbar = location.pathname === '/login';
+
     return (
-        <Router>
-            <div className="App">
-                <NavBar />
-                <main>
-                    <Routes>
-                        <Route path="/login" element={<LoginPage />} />
-                        
-                        <Route path="/" element={<InitialRedirect />} /> 
-                        
-                        <Route path="/dashboard" element={<PrivateRoute><DashboardPage /></PrivateRoute>} />
+        <div className="App">
+            {!hideNavbar && <NavBar />}
+            
+            <main>
+                <Routes>
+                    <Route path="/login" element={<LoginPage />} />
+                    
+                    <Route path="/" element={<InitialRedirect />} /> 
+                    
+                    <Route path="/dashboard" element={<PrivateRoute><DashboardPage /></PrivateRoute>} />
 
-                        <Route path="/sales" element={<PrivateRoute><SalesPage /></PrivateRoute>} />
-                        <Route path="/saleupload/new" element={<PrivateRoute><SaleUpload /></PrivateRoute>} />
-                        <Route path="/clients" element={<PrivateRoute><ClientsPage /></PrivateRoute>} />
-                        <Route path="/branches" element={<PrivateRoute><BranchesPage /></PrivateRoute>} />
-                        <Route path="/stock" element={<PrivateRoute><StockPage /></PrivateRoute>} />
+                    <Route path="/sales" element={<PrivateRoute><SalesPage /></PrivateRoute>} />
+                    <Route path="/saleupload/new" element={<PrivateRoute><SaleUpload /></PrivateRoute>} />
+                    <Route path="/clients" element={<PrivateRoute><ClientsPage /></PrivateRoute>} />
+                    <Route path="/branches" element={<PrivateRoute><BranchesPage /></PrivateRoute>} />
+                    <Route path="/stock" element={<PrivateRoute><StockPage /></PrivateRoute>} />
 
-                        <Route path="/employees" element={<PrivateRoute roleRequired="admin"><EmployeesPage /></PrivateRoute>} />
-                        <Route path="/saledetail/:saleId" element={<PrivateRoute><SaleDetail /></PrivateRoute>} />
-                        <Route path="/saleupload/:saleId" element={<PrivateRoute><SaleUpload /></PrivateRoute>} />
+                    <Route path="/employees" element={<PrivateRoute roleRequired="admin"><EmployeesPage /></PrivateRoute>} />
+                    <Route path="/saledetail/:saleId" element={<PrivateRoute><SaleDetail /></PrivateRoute>} />
+                    <Route path="/saleupload/:saleId" element={<PrivateRoute><SaleUpload /></PrivateRoute>} />
 
-                        <Route path="*" element={<InitialRedirect />} />
-                    </Routes>
-                </main>
-            </div>
-        </Router>
+                    <Route path="*" element={<InitialRedirect />} />
+                </Routes>
+            </main>
+        </div>
     );
 }
 
