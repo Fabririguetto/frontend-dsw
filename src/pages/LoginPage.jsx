@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { login } from '../services/authService';
+import { useNavigate } from 'react-router-dom';
 import { 
     Container, Paper, TextField, Button, Typography, Alert, Box,
     Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText 
@@ -16,6 +17,8 @@ const LoginPage = () => {
     const [newPassword, setNewPassword] = useState('');
     const [resetMessage, setResetMessage] = useState('');
     const [resetError, setResetError] = useState('');
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -36,7 +39,7 @@ const LoginPage = () => {
                 }
             }
             
-            window.location.href = destination;
+            navigate(destination, { replace: true });
             
         } catch (err) {
             setError(err.message);
