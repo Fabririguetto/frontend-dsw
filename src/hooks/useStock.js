@@ -143,7 +143,7 @@ function useStock() {
                       : 'Disponible';
 
     if (confirmDelete) {
-      sendRequest(`${API_BASE_URL}stockelim/${productId}`, 'PUT', { estado: newStatus }) 
+      sendRequest(`${API_BASE_URL}stock/${productId}`, 'PUT', { estado: newStatus }) 
         .then(() => fetchProducts())
         .catch((error) => console.error('Error deleting product:', error));
     }

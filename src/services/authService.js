@@ -1,19 +1,13 @@
 const API_URL = process.env.REACT_APP_API_URL;
 
-// [NUEVA FUNCIÓN]
-// Función auxiliar para decodificar el payload de un JWT
-// y extraer la información (como la fecha de expiración 'exp').
 const decodeToken = (token) => {
     try {
         if (!token) return null;
-        // Los JWT tienen el formato: header.payload.signature
         const base64Url = token.split('.')[1];
         if (!base64Url) return null;
         
-        // Reemplazar caracteres no seguros para URL por su equivalente base64 estándar
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
         
-        // Decodificar Base64 y parsear el JSON
         const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
             return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
         }).join(''));
